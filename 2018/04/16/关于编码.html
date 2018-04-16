@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Hogking&#39;s Blog">
 <meta property="og:description" content="编码问题（以下内容为学习文末参考资料后的总结，纯为个人的学习记录） 计算机中的编码数据都是以0、1二进制形式存储的。 ASCII可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了ASCII码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。 编码就是字符对应的二进">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/var/folders/dj/824z803141sd3z5h_f2bpxgh0000gn/T/abnerworks.Typora/image-20180416104328522.png">
-<meta property="og:image" content="http://yoursite.com/var/folders/dj/824z803141sd3z5h_f2bpxgh0000gn/T/abnerworks.Typora/image-20180416121950598.png">
-<meta property="og:updated_time" content="2018-04-16T07:10:47.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/16/关于编码/ascii.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/16/关于编码/utf_unicode.png">
+<meta property="og:updated_time" content="2018-04-16T07:23:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于编码">
 <meta name="twitter:description" content="编码问题（以下内容为学习文末参考资料后的总结，纯为个人的学习记录） 计算机中的编码数据都是以0、1二进制形式存储的。 ASCII可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了ASCII码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。 编码就是字符对应的二进">
-<meta name="twitter:image" content="http://yoursite.com/var/folders/dj/824z803141sd3z5h_f2bpxgh0000gn/T/abnerworks.Typora/image-20180416104328522.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/16/关于编码/ascii.png">
   
     <link rel="alternative" href="/atom.xml" title="Hogking&#39;s Blog" type="application/atom+xml">
   
@@ -168,7 +168,8 @@
 <h3 id="计算机中的编码"><a href="#计算机中的编码" class="headerlink" title="计算机中的编码"></a>计算机中的编码</h3><p>数据都是以0、1二进制形式存储的。</p>
 <h4 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h4><p>可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了<code>ASCII</code>码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。</p>
 <p>编码就是字符对应的二进制的关系，如ASCII码’A’对应的二进制为01000001。</p>
-<p><img src="/var/folders/dj/824z803141sd3z5h_f2bpxgh0000gn/T/abnerworks.Typora/image-20180416104328522.png" alt="image-20180416104328522"></p>
+<p>​                            <a id="more"></a></p>
+<p><img src="/2018/04/16/./关于编码/ascii.png" alt="ascii"></p>
 <h4 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h4><p>后来，计算机传入了中国。那中文没办法用ASCII码表示啊？<code>GBK</code>嘛，就是中国人发明来表示汉字的，其前身为<code>GB0</code>，兼容ASCII，但是由于GB0只收录了6000多个汉字，缺少生僻字和繁体字，后面就诞生出了GBK，其还包含了少数民族文字。</p>
 <p>这套标准至今仍有更新，在如今的win10简体中文版中，记事本保存的默认编码<code>ANSI</code>，实际上对应的就是这套标准。</p>
 <h4 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h4><p><code>ANSI</code>是什么？</p>
@@ -229,7 +230,7 @@
 <p><strong>第一个疑惑：</strong>上部分的中文字，明明Unicode是16位，为啥转为UTF-8就要24位了？</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">答：跟UTF-8的实现有关。</span><br><span class="line"></span><br><span class="line">UTF-8规定，若1字符=3字节，高位字节前3位为‘1110’，后面低位前2位一律为‘10’，</span><br><span class="line">若1字符=1字节，首位须为‘0’。</span><br><span class="line"></span><br><span class="line">如上面的&apos;中&apos;,UTF-8编码为**1110**0100 **10**111000 **10**101101，加粗部分是UTF-8规定的占用位，用来标识这是几个字节的字符，所以除去这些占用位，2个字节的UTF-8是没法去表示2个字节的Unicode的。</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><img src="/var/folders/dj/824z803141sd3z5h_f2bpxgh0000gn/T/abnerworks.Typora/image-20180416121950598.png" alt="image-20180416121950598"></p>
+<p><img src="/2018/04/16/./关于编码/utf_unicode.png" alt="image-20180416121950598"></p>
 </blockquote>
 <p>我在廖雪峰的网站上看见如上图，记事本打开文件中，存储在磁盘上的abc.txt数据被读入到内存中，就会转换为Unicode编码。</p>
 <p><strong>这里的坑是</strong>：实际上，在 Windows环境中，记事本的Unicode指的是<code>UTF-16</code>。下文再提windows下的编码问题。。。</p>
@@ -240,7 +241,7 @@
 <li><p>也是跟UTF-8的实现机制有关，正因为它是可变长的，所以UTF-8编码的字符串长度和字符个数没有固定换算关系，导致排版，排序之类的复杂度上升。</p>
 </li>
 <li><p>举个例子：<br>“ZH药丸” 是一个四个<strong>字符</strong>的字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;   UTF-8 编码是 &quot;5A 48 e88daf e4b8b8&quot;</span><br><span class="line">&gt;   UTF-16 编码是 &quot;005a 0048 836f 4e38&quot; （这里还有字节序的问题，但是我们先忽略）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;   UTF-8 编码是 &quot;5A 48 e88daf e4b8b8&quot;</span><br><span class="line">&gt;   UTF-16 编码是 &quot;005a 0048 836f 4e38&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
