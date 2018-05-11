@@ -6,23 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>关于编码 | Hogking&#39;s Blog</title>
+  <title>记python3爬取东方财富股吧沪深帖子及用户信息 | Hogking&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编码问题（以下内容为学习文末参考资料后的总结，纯为个人的学习记录） 计算机中的编码数据都是以0、1二进制形式存储的。 ASCII可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了ASCII码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。 编码就是字符对应的二进">
-<meta name="keywords" content="计算机基础">
+  <meta name="description" content="一. 简介爬虫并没有使用流行的框架，原因是以前并没有接触过爬虫 想通过自己慢慢实现来找找感觉。 程序使用了多进程+多线程，实现了首次全部爬取和增量爬取。 按我的理解，爬虫主要要干的就是：  下载网页 解析网页 存储内容  下载请求使用的是requests，解析和获取内容使用的是lxml、xpath和re。">
+<meta name="keywords" content="爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于编码">
-<meta property="og:url" content="http://yoursite.com/2018/04/16/关于编码.html">
+<meta property="og:title" content="记python3爬取东方财富股吧沪深帖子及用户信息">
+<meta property="og:url" content="http://yoursite.com/2018/05/11/记python3爬取东方财富股吧沪深帖子及用户信息.html">
 <meta property="og:site_name" content="Hogking&#39;s Blog">
-<meta property="og:description" content="编码问题（以下内容为学习文末参考资料后的总结，纯为个人的学习记录） 计算机中的编码数据都是以0、1二进制形式存储的。 ASCII可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了ASCII码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。 编码就是字符对应的二进">
+<meta property="og:description" content="一. 简介爬虫并没有使用流行的框架，原因是以前并没有接触过爬虫 想通过自己慢慢实现来找找感觉。 程序使用了多进程+多线程，实现了首次全部爬取和增量爬取。 按我的理解，爬虫主要要干的就是：  下载网页 解析网页 存储内容  下载请求使用的是requests，解析和获取内容使用的是lxml、xpath和re。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/04/16/关于编码/ascii.png">
-<meta property="og:image" content="http://yoursite.com/2018/04/16/关于编码/utf_unicode.png">
-<meta property="og:updated_time" content="2018-04-16T07:23:16.000Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-930e9065b94409a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-8f8881cca7f79764.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-a5bbf01a8bb16b66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-9b3def33dae77029.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-1b3becc4263fc3d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-abeebea3e6fa58af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-cda0579d3defe65b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-b78b7be1a81a20df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9009359-d1b66486d67e2a02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-11T12:48:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于编码">
-<meta name="twitter:description" content="编码问题（以下内容为学习文末参考资料后的总结，纯为个人的学习记录） 计算机中的编码数据都是以0、1二进制形式存储的。 ASCII可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了ASCII码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。 编码就是字符对应的二进">
-<meta name="twitter:image" content="http://yoursite.com/2018/04/16/关于编码/ascii.png">
+<meta name="twitter:title" content="记python3爬取东方财富股吧沪深帖子及用户信息">
+<meta name="twitter:description" content="一. 简介爬虫并没有使用流行的框架，原因是以前并没有接触过爬虫 想通过自己慢慢实现来找找感觉。 程序使用了多进程+多线程，实现了首次全部爬取和增量爬取。 按我的理解，爬虫主要要干的就是：  下载网页 解析网页 存储内容  下载请求使用的是requests，解析和获取内容使用的是lxml、xpath和re。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/9009359-930e9065b94409a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Hogking&#39;s Blog" type="application/atom+xml">
   
@@ -144,140 +151,442 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-关于编码" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-记python3爬取东方财富股吧沪深帖子及用户信息" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于编码
+      记python3爬取东方财富股吧沪深帖子及用户信息
     </h1>
   
 
         
-        <a href="/2018/04/16/关于编码.html" class="archive-article-date">
-  	<time datetime="2018-04-16T07:09:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-16</time>
+        <a href="/2018/05/11/记python3爬取东方财富股吧沪深帖子及用户信息.html" class="archive-article-date">
+  	<time datetime="2018-05-11T12:45:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h1><p>（以下内容为学习文末参考资料后的总结，纯为个人的学习记录）</p>
-<h3 id="计算机中的编码"><a href="#计算机中的编码" class="headerlink" title="计算机中的编码"></a>计算机中的编码</h3><p>数据都是以0、1二进制形式存储的。</p>
-<h4 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h4><p>可是，0、1什么的人哪里看得懂，为了表示成人能看得懂的语言，美国佬发明了<code>ASCII</code>码。因为当时只考虑了英语这门语言，而英语无非就26个字母，再加上数字、标点符号及控制，也就127个字符编码，所以用一字节（8比特，2^8 = 256）来表示绰绰有余。</p>
-<p>编码就是字符对应的二进制的关系，如ASCII码’A’对应的二进制为01000001。</p>
-<p>​                            <a id="more"></a></p>
-<p><img src="/2018/04/16/./关于编码/ascii.png" alt="ascii"></p>
-<h4 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h4><p>后来，计算机传入了中国。那中文没办法用ASCII码表示啊？<code>GBK</code>嘛，就是中国人发明来表示汉字的，其前身为<code>GB0</code>，兼容ASCII，但是由于GB0只收录了6000多个汉字，缺少生僻字和繁体字，后面就诞生出了GBK，其还包含了少数民族文字。</p>
-<p>这套标准至今仍有更新，在如今的win10简体中文版中，记事本保存的默认编码<code>ANSI</code>，实际上对应的就是这套标准。</p>
-<h4 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h4><p><code>ANSI</code>是什么？</p>
-<blockquote>
-<p>ANSI指的是对应当前系统 locale 的遗留（legacy）编码。</p>
-</blockquote>
-<p>比如大陆这块对应的就是GBK，是为了提防出现几十年前的老文档的情况才用的这种编码，否则都用Unicode去了。</p>
-<h4 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h4><p>上面说的ASICII和GBK等编码都只考虑了本土行情。。。全世界有那么多国家和语言，上面两种规范根本没法表示它们，比如日本用XXX，韩国用XXX，乱套了。</p>
-<p>因此，统一联盟国际组织提出了<code>Unicode</code>，它是一种字符集。</p>
-<p>它有UCS-2和UCS-4两种格式，前者为16位，可以表示65536个字符，但还是没法囊括那么多语言啊，汉字的数量就已经超过它的范围了。</p>
-<p>于是，UCS-4出现了，用32个位去表示一个字符，32位的UCS-4理论上可以表示已有的字符（实际上只用了31位，最高位必须为0）。</p>
-<blockquote>
-<p>常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。</p>
-</blockquote>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>好了，搞这么久大家终于统一了，这样就不会乱码了。。。</p>
-<p>但这<strong>只是规定了某一个字符对应的二进制</strong>！和ASCII码时代不同了。</p>
-<p>为什么这么说？</p>
-<p>在ASCII码时代，一个’a’可以用8位表示，存储和传输都是8位，多方便啊，表示、传输、存储都是统一的8位，没任何毛病！此时可以看作字符代码和字符编码是一样的。</p>
-<p>而对于Unicode，如果一个Asicii字符’a’我也用32位去存储、传输，那一篇满是英文和符号字符的文章传输起来得多浪费时间空间？中文也是，明明2或3个字节表示的，结果却要按4个字节来传输，不行！</p>
-<p>所以，<strong>“怎么存储”</strong>和<strong>“怎么传输”</strong>就成了新的问题。</p>
-<h4 id="UTF（Unicode-Transformation-Format）"><a href="#UTF（Unicode-Transformation-Format）" class="headerlink" title="UTF（Unicode Transformation Format）"></a>UTF（Unicode Transformation Format）</h4><p>新问题伴随新的解决办法，<code>UTF</code>出现了。它是Unicode的<strong>一种实现方式</strong>，相当于<strong>在Unicode的基础上再定义了一套编码方式</strong>，其任务就是<strong>在保持Unicode这种通用性的同时解决其空间占用问题</strong>。</p>
-<p>UTF-8、UTF-16就是用n个8位、16位去表示一个Unicode码。</p>
-<p>在传输时，就可以把Unicode映射成UTF-8编码，遇到不同的情况就把Unicode转换成不同长度的UTF-8编码，因此UTF-8也称作变长码，UTF-16也是。比如遇到ASCII码就可以转换为长度为1字节的UTF-8，汉字就转换为3字节的。</p>
-<blockquote>
-<p>2016年互联网87%的网页是用UTF-8编码的。</p>
-</blockquote>
-<p>如下图：</p>
-<blockquote>
+        <h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h3><p>爬虫并没有使用流行的框架，原因是以前并没有接触过爬虫 想通过自己慢慢实现来找找感觉。</p>
+<p>程序使用了多进程+多线程，实现了首次全部爬取和增量爬取。</p>
+<p>按我的理解，爬虫主要要干的就是：</p>
+<ul>
+<li>下载网页</li>
+<li>解析网页</li>
+<li>存储内容</li>
+</ul>
+<p>下载请求使用的是<strong>requests</strong>，解析和获取内容使用的是<strong>lxml、xpath和re</strong>。</p>
+<a id="more"></a>
+<p>存储方面我则是用了<strong>mongodb</strong>，这也是我第一次使用NoSQL。其实使用mongodb部分原因是想用用非关系数据库，借机了解学习= =。还有使用了<strong>redis</strong>作为消息队列。</p>
+<h3 id="二-数据库存储"><a href="#二-数据库存储" class="headerlink" title="二. 数据库存储"></a>二. 数据库存储</h3><p>使用非关系数据库的话，就要学会摒弃关系型数据库的思维，反范式化。</p>
+<p>不得不说，开头的时候我还是傻傻地把表按关系型的思维去设计了。</p>
+<p><strong>东方财富股吧数据表字段</strong>：</p>
+<p><strong>User集合</strong></p>
 <table>
 <thead>
 <tr>
-<th>字符</th>
-<th>ASCII</th>
-<th>Unicode</th>
-<th>UTF-8</th>
+<th>字段名</th>
+<th>类型</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A</td>
-<td>01000001</td>
-<td>00000000 01000001</td>
-<td>01000001</td>
+<td>_id</td>
+<td>ObjectId</td>
+<td>ObjectID</td>
 </tr>
 <tr>
-<td>中</td>
-<td>x</td>
-<td>01001110 00101101</td>
-<td>11100100 10111000 10101101</td>
+<td>id</td>
+<td>string</td>
+<td>网站用户id</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>用户主页链接</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>用户昵称</td>
+</tr>
+<tr>
+<td>avator</td>
+<td>string</td>
+<td>用户头像链接</td>
+</tr>
+<tr>
+<td>reg_date</td>
+<td>ISODate</td>
+<td>注册日期</td>
+</tr>
+<tr>
+<td>following_count</td>
+<td>int</td>
+<td>关注数</td>
+</tr>
+<tr>
+<td>fans_count</td>
+<td>int</td>
+<td>粉丝数</td>
+</tr>
+<tr>
+<td>influence</td>
+<td>int</td>
+<td>影响力</td>
+</tr>
+<tr>
+<td>introduce</td>
+<td>string</td>
+<td>用户简介</td>
+</tr>
+<tr>
+<td>visit_count</td>
+<td>int</td>
+<td>总访问数</td>
+</tr>
+<tr>
+<td>post_count</td>
+<td>int</td>
+<td>发帖数</td>
+</tr>
+<tr>
+<td>comment_count</td>
+<td>int</td>
+<td>评论数</td>
+</tr>
+<tr>
+<td>optional_count</td>
+<td>int</td>
+<td>自选数</td>
+</tr>
+<tr>
+<td>capacity_circle</td>
+<td>List（存放code）</td>
+<td>能力圈</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>所属论坛</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
-<p>如果传输的数据里比较多的字符是ASCII字符，对应的UTF-8占8位，Unicode占16位，传输效率就会提升。</p>
-<p>若为中文，则UTF-16相对UTF-8效率会高一些，因为UTF-16可以直接表示比较常用的2字符中文字符，即UTF-16可以用2字节表示常用中文字符，而UTF-8却要用3字节。</p>
-<h4 id="一些坑及疑惑"><a href="#一些坑及疑惑" class="headerlink" title="一些坑及疑惑"></a>一些坑及疑惑</h4><p>由于UTF的可变长性，传输、存储在硬盘的时候就使用UTF-8编码（节省空间）。</p>
-<p>而在计算机内存中，就使用Unicode。</p>
-<p><strong>第一个疑惑：</strong>上部分的中文字，明明Unicode是16位，为啥转为UTF-8就要24位了？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">答：跟UTF-8的实现有关。</span><br><span class="line"></span><br><span class="line">UTF-8规定，若1字符=3字节，高位字节前3位为‘1110’，后面低位前2位一律为‘10’，</span><br><span class="line">若1字符=1字节，首位须为‘0’。</span><br><span class="line"></span><br><span class="line">如上面的&apos;中&apos;,UTF-8编码为**1110**0100 **10**111000 **10**101101，加粗部分是UTF-8规定的占用位，用来标识这是几个字节的字符，所以除去这些占用位，2个字节的UTF-8是没法去表示2个字节的Unicode的。</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><img src="/2018/04/16/./关于编码/utf_unicode.png" alt="image-20180416121950598"></p>
-</blockquote>
-<p>我在廖雪峰的网站上看见如上图，记事本打开文件中，存储在磁盘上的abc.txt数据被读入到内存中，就会转换为Unicode编码。</p>
-<p><strong>这里的坑是</strong>：实际上，在 Windows环境中，记事本的Unicode指的是<code>UTF-16</code>。下文再提windows下的编码问题。。。</p>
-<p>那我又疑惑了。。。为啥要转换来转换去，不直接用UTF-8编码呢？反正它既可以解决乱码问题，又可以解决变长问题。</p>
-<blockquote>
-<p>答：</p>
+<p><strong>Post 集合</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_id</td>
+<td>ObjectId</td>
+<td>Objectid</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>帖子id</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>帖子链接</td>
+</tr>
+<tr>
+<td>user_nickname</td>
+<td>string</td>
+<td>作者昵称</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>帖子标题</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>ISODate</td>
+<td>发表时间</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>帖子内容（见下）</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>帖子类型</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>所属板块代码</td>
+</tr>
+<tr>
+<td>comment_count</td>
+<td>int</td>
+<td>评论数</td>
+</tr>
+<tr>
+<td>comments</td>
+<td>List</td>
+<td>评论列表，里面存放comment文档（见下）</td>
+</tr>
+<tr>
+<td>last_update_at</td>
+<td>ISODate</td>
+<td>最后更新时间</td>
+</tr>
+<tr>
+<td>like_count</td>
+<td>int</td>
+<td>点赞数</td>
+</tr>
+<tr>
+<td>page_count</td>
+<td>int</td>
+<td>帖子页数</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>来源（eastmoney）</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>帖子类型（有hinfo、normal还有qa）</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>作者id</td>
+</tr>
+<tr>
+<td>user_influence</td>
+<td>string</td>
+<td>作者影响力</td>
+</tr>
+<tr>
+<td>user_age</td>
+<td>string</td>
+<td>作者吧龄</td>
+</tr>
+<tr>
+<td>view_count</td>
+<td>int</td>
+<td>浏览量</td>
+</tr>
+</tbody>
+</table>
+<p>文章与评论采用<strong>内嵌形式</strong></p>
+<p>采用内嵌而不是引用的理由：</p>
 <ul>
-<li><p>也是跟UTF-8的实现机制有关，正因为它是可变长的，所以UTF-8编码的字符串长度和字符个数没有固定换算关系，导致排版，排序之类的复杂度上升。</p>
-</li>
-<li><p>举个例子：<br>“ZH药丸” 是一个四个<strong>字符</strong>的字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;   UTF-8 编码是 &quot;5A 48 e88daf e4b8b8&quot;</span><br><span class="line">&gt;   UTF-16 编码是 &quot;005a 0048 836f 4e38&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</li>
+<li>场景是使用爬虫爬取文本内容做分析而不是作为论坛数据库使用，多数帖子评论较少，最多的大概是几千条，基本不会超过16MB的限制。</li>
+<li>且未来文本分析主要操作是读取，读取内容为主帖+每条评论，使用内嵌形式的话进行一次查询即可。</li>
+<li>缺点是占用更多空间。</li>
 </ul>
-</blockquote>
-<blockquote>
-<p>  如果我想让你找到第四个字符是啥，UTF-8 必须扫过整个 字节流，而使用 UTF-16 的话，直接取出第四个16位整形（4e38）就好了。</p>
-<p>  但是我们存储在硬盘上的字符串是不需要<strong>处理</strong>的，这时候通常情况下比较节约存储空间的UTF-8 就成为了首选。</p>
-</blockquote>
-<p>意思就是：UTF-8是变长码，所以在内存里不好识别咯。而定长的Unicode就可以提高数据在内存中的运算效率。</p>
-<p>总结：UTF-8的可变长有其优势也有其劣势！</p>
-<h4 id="Windows记事本下的编码"><a href="#Windows记事本下的编码" class="headerlink" title="Windows记事本下的编码"></a>Windows记事本下的编码</h4><blockquote>
-<ul>
-<li>所谓的「ANSI」指的是对应当前系统 locale 的遗留（legacy）编码。[1]</li>
-</ul>
-</blockquote>
-<p>因为ANSI是windows早期使用的，而后才支持的Unicode。所以就要考虑兼容问题了，怎么办？微软的办法就是当字符无法用unicode时，就使用默认语言（电脑里的区域和语言选项）编码解释，比如大陆就是GBK，实际上这种编码就是ANSI。</p>
-<p>那么记事本怎么知道一段编码是哪种规范的呢？那就是靠BOM了，打开txt时，最前面有一个标签就是BOM。</p>
-<blockquote>
-<p>标签叫BOM，如果是0xFF 0xFE，是UTF16LE，如果是0xFE 0xFF则UTF16BE，如果是0xEF 0xBB 0xBF，则是UTF-8。如果没有这三个东西，那么就是ANSI，使用操作系统的默认语言编码来解释。</p>
-</blockquote>
-<p>BOM是为了兼容和跨平台设计的，但加了BOM很多程序仍没法处理，反而导致出现问题。所以，最好别用windows记事本。。。</p>
-<p>那么，微软为啥要用UTF-16？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">这是微软当年的一个坑，早期用ANSI。后来Unicode出现了，当时Unicode为UCS-2格式时，字符用16位表示，当时的UTF-16本质上就是16位的定长码。(包括英文字符啥的都得用16位存储和传输，还是浪费空间的，但胜在能涵盖“当时的所有字符”)</span><br><span class="line"></span><br><span class="line">后面由于Unicode发展为UCS-4格式，使得UTF-16没法包含原来的所有字符了，需要加入机制来表示新的标准字符，从而UTF-16变成了变长码。。。</span><br></pre></td></tr></table></figure>
-<p>现在的UTF-32就是定长码，其位数和字符集（UCS-4）大小一致，能一次解析出字符，但是正如上面所说的浪费问题，基本不会采用。</p>
 <hr>
-<p>参考资料：</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/31833164/answer/114694586" target="_blank" rel="noopener">Python 编码为什么那么蛋疼？ - 刘志军的回答 - 知乎</a></p>
-<p><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431664106267f12e9bef7ee14cf6a8776a479bdec9b9000" target="_blank" rel="noopener">字符串和编码 - 廖雪峰的官方网站</a></p>
-<p><a href="https://www.zhihu.com/question/52346583" target="_blank" rel="noopener">在计算机中为何不直接使用UTF8编码进行存储，而要使用Unicode再转换成UTF8？</a></p>
-<p><a href="https://www.zhihu.com/question/19817672" target="_blank" rel="noopener">为什么那么多网站钟情 UTF-8？</a></p>
-<p><a href="https://www.zhihu.com/question/20650946" target="_blank" rel="noopener">Windows 记事本的 ANSI、Unicode、UTF-8 这三种编码模式有什么区别？</a></p>
-</blockquote>
-<p>下面的参考还讲到了从UCS-2发展成UCS-4的过程中一些有意思的历史，推荐一看。</p>
-<blockquote>
-<p>在计算机中为何不直接使用UTF8编码进行存储，而要使用Unicode再转换成UTF8？ - 云采月的回答 - 知乎<br><a href="https://www.zhihu.com/question/52346583/answer/130187864" target="_blank" rel="noopener">https://www.zhihu.com/question/52346583/answer/130187864</a></p>
-</blockquote>
+<p><strong>Comment 评论文档</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>评论id（唯一）</td>
+</tr>
+<tr>
+<td>user_nickname</td>
+<td>string</td>
+<td>评论用户昵称</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>String</td>
+<td>评论用户id</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>ISODate</td>
+<td>发表时间</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>评论内容</td>
+</tr>
+<tr>
+<td>like_count</td>
+<td>int</td>
+<td>点赞数</td>
+</tr>
+<tr>
+<td>user_influence</td>
+<td>int</td>
+<td>评论用户影响力</td>
+</tr>
+<tr>
+<td>user_age</td>
+<td>String</td>
+<td>评论用户吧龄</td>
+</tr>
+<tr>
+<td>reply_to</td>
+<td>document</td>
+<td>回复的评论的内容（见下表）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>reply_to 文档</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reply_to_user_nickname</td>
+<td>string</td>
+<td>回复的评论的用户昵称</td>
+</tr>
+<tr>
+<td>reply_to_comment</td>
+<td>string</td>
+<td>回复的评论的内容</td>
+</tr>
+<tr>
+<td>reply_to_comment_id</td>
+<td>string</td>
+<td>回复的评论的id</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>当<strong>帖子类型为qa</strong>（问董秘）时，帖子的内容形式有变化。此时帖子的content则存放question和answer，其中question为string，而answer为文档，如下。</p>
+<p><strong>answer 文档</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>答复内容</td>
+</tr>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>答复来自</td>
+</tr>
+<tr>
+<td>time</td>
+<td>ISODate</td>
+<td>答复时间</td>
+</tr>
+</tbody>
+</table>
+<p>实例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;_id&quot; : ObjectId(&quot;5af30cc7e99de146ba385258&quot;),</span><br><span class="line">    &quot;url&quot; : &quot;http://guba.eastmoney.com/news,600000,758450707.html&quot;,</span><br><span class="line">    &quot;code&quot; : &quot;600000&quot;,</span><br><span class="line">    &quot;comment_count&quot; : &quot;1&quot;,</span><br><span class="line">    &quot;comments&quot; : [ </span><br><span class="line">        &#123;</span><br><span class="line">            &quot;id&quot; : &quot;8692649074&quot;,</span><br><span class="line">            &quot;user_nickname&quot; : &quot;很S很天真&quot;,</span><br><span class="line">            &quot;user_id&quot; : &quot;6303084653682694&quot;,</span><br><span class="line">            &quot;created_at&quot; : ISODate(&quot;2018-05-07T18:51:56.000Z&quot;),</span><br><span class="line">            &quot;content&quot; : &quot;浦发的每一次反弹都是撤离的好机会！&quot;,</span><br><span class="line">            &quot;reply_to&quot; : &quot;&quot;,</span><br><span class="line">            &quot;like_count&quot; : 0,</span><br><span class="line">            &quot;user_influence&quot; : 5,</span><br><span class="line">            &quot;user_age&quot; : &quot;1.9年&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;content&quot; : &#123;</span><br><span class="line">        &quot;question&quot; : &quot;为何2017年的现金分红对比2016年大幅缩减？导致5月2号股票价格大跌。&quot;,</span><br><span class="line">        &quot;answer&quot; : &#123;</span><br><span class="line">            &quot;from&quot; : &quot;上证e互动&quot;,</span><br><span class="line">            &quot;time&quot; : &quot;2018-05-07 17:32:47&quot;,</span><br><span class="line">            &quot;content&quot; : &quot;公司2017年度利润分配预案主要基于：一是在国家持续推进供给侧改革和去杠杆过程中，银行业风险管控压力持续上升，对银行抗风险能力提出更高的要求；二是2018年为资本达标过渡期最后一年，对商业银行资本充足水平提出了更高要求；三是随着公司集团化、国际化战略的不断推进，集团及各子公司健康快速发展，对于资本补充的需求也显著上升；四是公司加快结构转型，注重科技引领，加快建设数字生态银行，科研投入占比有所增加，需要充足的资本支撑。公司综合考虑监管机构的相关要求、自身盈利水平和资本充足状况、以及转型发展的需要，适当提高了利润留存比例以补充资本，提升公司防范金融风险、服务实体经济、深化金融改革的能力。感谢您的关注！&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;created_at&quot; : ISODate(&quot;2018-05-03T11:15:25.000Z&quot;),</span><br><span class="line">    &quot;id&quot; : &quot;758450707&quot;,</span><br><span class="line">    &quot;last_update_at&quot; : ISODate(&quot;2018-05-07T18:51:56.000Z&quot;),</span><br><span class="line">    &quot;like_count&quot; : 0,</span><br><span class="line">    &quot;page_count&quot; : 1,</span><br><span class="line">    &quot;source&quot; : &quot;eastmoney&quot;,</span><br><span class="line">    &quot;title&quot; : &quot;为何2017年的现金分红对比2016年大&quot;,</span><br><span class="line">    &quot;type&quot; : &quot;qa&quot;,</span><br><span class="line">    &quot;uesr_nickname&quot; : &quot;顺民izeoyl&quot;,</span><br><span class="line">    &quot;user_age&quot; : &quot;2.8年&quot;,</span><br><span class="line">    &quot;user_id&quot; : &quot;4661094379663388&quot;,</span><br><span class="line">    &quot;user_influence&quot; : 0,</span><br><span class="line">    &quot;view_count&quot; : &quot;2642&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三-爬取过程"><a href="#三-爬取过程" class="headerlink" title="三.爬取过程"></a>三.爬取过程</h3><p>爬取的思路大概是这样的：</p>
+<p><strong>1.首先要获取到所有的股票代码</strong></p>
+<p>在<a href="http://guba.eastmoney.com/remenba.aspx?type=1" target="_blank" rel="noopener">东方财富个股吧</a>里有所有的股票信息，我只选取了沪A和深A的股票作为爬取对象。</p>
+<p>所以的话，第一步就是就<strong>将这些股票代码爬取下来，保存到redis中。</strong></p>
+<p><strong>2.能够获取一个股票代码版块的所有帖子链接</strong></p>
+<p>可以选择页数较少的股票先作为目标，比如 浙江美大002677 这只股票，其版块链接为<a href="http://guba.eastmoney.com/list,002677.html" target="_blank" rel="noopener">http://guba.eastmoney.com/list,002677.html</a></p>
+<p>大概有167页，每页最多有80个帖子。要能够把这么多个帖子链接记录下来，然后后面再挨个爬取里面的详细内容。</p>
+<h5 id="3-能够获取一个帖子里面的所有内容"><a href="#3-能够获取一个帖子里面的所有内容" class="headerlink" title="3.能够获取一个帖子里面的所有内容"></a><strong>3.能够获取一个帖子里面的所有内容</strong></h5><p>每获取完一个帖子里的所有内容，就把它保存到数据库中。</p>
+<p>在这个过程中，把所有发帖留言的用户id都记录下来。</p>
+<h5 id="4-能够获取用户的信息"><a href="#4-能够获取用户的信息" class="headerlink" title="4.能够获取用户的信息"></a><strong>4.能够获取用户的信息</strong></h5><p>爬取前先判断用户id是否已经保存在redis的set中。若不存在，则获取用户信息，然后保存到数据库，并且把用户id插入到redis的set中（set能够自动去重）。</p>
+<hr>
+<p>这四步都完成后，爬虫就完成啦。</p>
+<p>第二步就可以使用多进程去操作，每个进程从redis里取一个任务，然后执行第三步。</p>
+<p>而第三、四步则可以用多线程，因为这两步属于<strong>IO密集型</strong>的任务。</p>
+<h3 id="四-细节"><a href="#四-细节" class="headerlink" title="四. 细节"></a><strong>四. 细节</strong></h3><p>我在爬取东方财富股吧的过程中发现它好像没有设置反爬机制？对新手很友好哇。但是我们还是秉着原则<code>time.sleep(x)</code>一下。</p>
+<hr>
+<h5 id="关于第一步-获取所有股票代码"><a href="#关于第一步-获取所有股票代码" class="headerlink" title="关于第一步 获取所有股票代码"></a><strong>关于第一步</strong> 获取所有股票代码</h5><p>爬虫的第一步没有什么坑，按照静态页面思路爬取即可，主要是熟悉了xpath的使用。</p>
+<hr>
+<h5 id="关于第二步-获取某个版块的所有帖子"><a href="#关于第二步-获取某个版块的所有帖子" class="headerlink" title="关于第二步 获取某个版块的所有帖子"></a><strong>关于第二步</strong> 获取某个版块的所有帖子</h5><p>要获取所有帖子，第一反应就是想到遍历每一页，那得先知道版块页数对吧？然后发现版块下面就有了，如下图。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9009359-930e9065b94409a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-11 下午5.45.31.png"></p>
+<p>但是发现这个是属于动态内容，所以我是用到了selenium无头模式获取这个版块的页数，比如浙江美大版块 共 <strong>167</strong> 页。其中，在服务器中如果要用selenium得要用库pyvirtualdisplay。然后在使用selenium的地方加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">display = Display(visible=0, size=(800, 800))   </span><br><span class="line"></span><br><span class="line">display.start()</span><br></pre></td></tr></table></figure>
+<p>获取到页面数之后，就开始用for循环获取每一页内容，把页面上基本的信息保存下来。</p>
+<p><strong>尤其是帖子的链接，</strong>在第三步获取帖子里面的内容，就得请求帖子链接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">页数范围 = 用selenium获取的页数</span><br><span class="line">for i in 页数范围：</span><br><span class="line">	获取（http://guba.eastmoney.com/list,002677_i.html）的帖子信息</span><br></pre></td></tr></table></figure>
+<p>其实后面我想到没必要用selenium获取这个页数，直接在while循环内让页数递增，当获取不到页面元素时直接捕捉异常退出while循环就可以了吧= =。</p>
+<p>这步遇到的坑就是，<strong>当爬取内容前，得先了解要爬取的目标！！</strong></p>
+<p>比如帖子原来有<strong>公告</strong>，<strong>比赛</strong>，<strong>问董秘</strong>，<strong>研报</strong>，<strong>新闻</strong>及<strong>普通帖子</strong>多种形式。</p>
+<p>所以要分析这些帖子里面的内容形式是不是相同的！！否则解析部分就会不对= =。比如一开始我看了几页数据，都没注意到有<strong>问董秘</strong>这种东西。。。</p>
+<hr>
+<h5 id="关于第三步-获取帖子详细内容"><a href="#关于第三步-获取帖子详细内容" class="headerlink" title="关于第三步 获取帖子详细内容"></a>关于第三步 获取帖子详细内容</h5><p>帖子的标题，内容还有评论内容都是静态内容，可以很容易获取到的。</p>
+<p>但是作者、评论用户的吧龄及影响力，还有帖子及评论的点赞数则都是要用ajax获取到的。</p>
+<p>用chrome打开控制台Network得到这些链接。如下图所示，以下得到的是每个用户的id、吧龄和影响力。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9009359-8f8881cca7f79764.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-11 下午6.08.01.png"></p>
+<p>请求链接Requests URL如下图所示，可以看到<strong>关键</strong>就是要<strong>构造action=xx后面的id和replyids</strong>，<img src="https://upload-images.jianshu.io/upload_images/9009359-a5bbf01a8bb16b66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-11 下午6.10.14.png"></p>
+<p>所以的话，每次想要获取帖子里所有用户的吧龄和影响力，就是先获取到他们的用户id，以及评论id，构造出类似上面的链接获取信息。</p>
+<p>构造形式大概就是<code>/../guba.aspx?action=getreplylikegd&amp;id=xxx&amp;replyids=xxx%7Cxxx%2Cxxx%7Cxxx….</code></p>
+<p>7C后面接的是评论的id，2C后面接的是评论用户的id。即对于评论，是要有<strong>这条评论本身的id</strong>以及<strong>评论用户的id</strong>一起才行的。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9009359-9b3def33dae77029.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-11 下午6.14.11.png"></p>
+<p>返回结果为如上，把最外层的括号去掉，然后用json库解析数据获取里面的内容即可。</p>
+<p><strong>再后面就遇到坑了！！！：</strong></p>
+<p>有的帖子有很多的评论用户，构造出来的链接就会包括很多用户和评论id。此时就可能超过了一定的上限，比如几百条回复，你构造了超级长的链接请求，结果可能只返回了前30条。。。（具体多少我没去留意）</p>
+<p>所以，我就分开多次获取，每次获取30条再保存起来。</p>
+<p>其它的部分也类似上述过程啦。</p>
+<hr>
+<h4 id="最最后"><a href="#最最后" class="headerlink" title="最最后"></a>最最后</h4><p>程序可以跑啦！</p>
+<p>结果，却发现还是会有报错。。。（痛苦）</p>
+<p>后面尝试输出错误页面链接，发现了东财很多奇怪的地方。。。</p>
+<p><strong>比如坑1：</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9009359-1b3becc4263fc3d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-04-28 下午6.18.13.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9009359-abeebea3e6fa58af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-04-28 下午6.18.22.png"></p>
+<p>中科信息吧的帖子打开竟然是中科曙光的！？= =</p>
+<p><strong>坑2：</strong><br><img src="https://upload-images.jianshu.io/upload_images/9009359-cda0579d3defe65b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-09 下午9.12.29.png"><br>有的帖子出现在了版块中，打开却会是不存在。</p>
+<p><strong>坑3：</strong><br><img src="https://upload-images.jianshu.io/upload_images/9009359-b78b7be1a81a20df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-10 下午9.34.14.png"></p>
+<p>这虽然是问董秘类型的帖子，但其实应该是公告类型的。。。（仔细看，会发现和上面两条的公告是一样的）</p>
+<p>进去里面并没有问答的内容，所以解析页面的时候就会报错！</p>
+<p><strong>坑4：</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9009359-d1b66486d67e2a02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2018-05-09 下午9.28.48.png"></p>
+<p>好吧，原来还有“上海手机网友”这种玩意。。。<br>你没法获取到它的用户id（压根没有）和昵称（内容不再是在a标签里，而是在span标签里）。评论里也一样会出现“上海手机网友”。。。</p>
+<p>针对上述情况，修改下代码即可。</p>
+<p>ok，单进程单线程能正常跑了，加上多线程和多进程提高爬虫速度。</p>
+<h3 id="五-增量爬取"><a href="#五-增量爬取" class="headerlink" title="五.增量爬取"></a>五.增量爬取</h3><p>首次爬取完全部的内容了，假设后面想获取更新内容呢？立马想到的是<strong>根据时间来判断</strong>。</p>
+<p>取<strong>版块中帖子的最后更新时间</strong>与<strong>数据库中该板块的最新时间</strong>作比较，如果发现页面中的时间比数据库里的新，就把帖子爬下来。</p>
+<p>结果还是遇到坑了，首先，东财版块页面每条帖子后面显示的最后更新时间是不包含年份的，这样的话可能遇到某些特殊情况会出问题？于是，我就尝试获取帖子的最新评论的发表时间，这个时间是包含年月日的。</p>
+<p>请求链接为：<a href="http://guba.eastmoney.com/news,xxxxxx,xxxxxxxx,d.html#storeply" target="_blank" rel="noopener">http://guba.eastmoney.com/news,xxxxxx,xxxxxxxx,d.html#storeply</a></p>
+<p>请求带d的帖子链接，第一条评论就是最新评论。</p>
+<hr>
+<p>本以为这就可以了，实际运行发现爬没几条就停止了。发现这些帖子都有一个问题，就是它们<strong>在版块中显示的最后更新时间</strong>和<strong>最新一条评论的发表时间</strong>并不相同！！（好吧，此时此刻我以为我又遇到bug了）</p>
+<p>后面细心点才发现<strong>问题所在</strong>：</p>
+<p>版块页面每条帖子后面显示的最后更新时间并不一定代表帖子有新评论，也可能是帖子中有点赞行为（<strong>猜测是吧，实际中我尝试回帖、点赞，帖子都不是立即被置顶的</strong>）。</p>
+<p>而当时<strong>保存在数据库中的最后更新时间</strong> 其实是 <strong>主帖中最后一条评论的发表时间</strong>，这个不一定和版块页面中显示的最后更新时间是相同的。</p>
+<p>所以就出现了这样的情况：有的帖子没有新评论，但是有点赞行为，帖子被顶上去了，然而程序如果看到这样的帖子，就以为爬完了（因为版块页面的时间是最新的，但最后一条评论的发表时间和数据库中的最后更新时间相同）。</p>
+<p>后面想了一个解决方法是：设定一个上限N，只有连续获取的N条帖子情况都这样（连续N条帖子都是由纯点赞行为导致的可能性是很小的吧）才认为把最新的内容都爬取完。</p>
+<p>这么弄了后，观察下来增量爬取好像没什么问题了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我们很难想象是不是已经考虑到了所有的情况，所以可以忽略的部分就尽可能善用异常机制，不能忽略的就观察错误，改进代码。庆幸东财没反爬虫。。。通过这次的爬取，还是对爬虫有了一定的感觉的。</p>
 
       
 
@@ -291,7 +600,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
         		</li>
       		
 		</ul>
@@ -347,7 +656,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/16/关于编码.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/11/记python3爬取东方财富股吧沪深帖子及用户信息.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -361,18 +670,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/07/《优秀到不能被忽视》读后感.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          《优秀到不能被忽视》读后感
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/07/Hello-world.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello,world</div>
+    <a href="/2018/05/07/机器学习基石-第一周.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">机器学习基石-第一周</div>
       <i class="icon-circle-right"></i>
     </a>
   
